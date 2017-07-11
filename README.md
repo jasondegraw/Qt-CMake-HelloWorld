@@ -22,8 +22,17 @@ CMake GUI, Visual Studio 2013, Qt 5.3 (OpenGL), 64 bit - Select the Visual Studi
 CMake Command Line, Visual Studio 2013, Qt 5.3 (OpenGL), 64 bit - If executed after vcvarsall, then CMake will only need to know where Qt is:
 
 ```
-C:\...\Qt-CMake-HelloWorld\build-vs2013-cli>cmake -DCMAKE_PREFIX_PATH="path/to/Qt5/lib/cmake" -G "Visual Studio 12 Win64" ..
+C:\...\Qt-CMake-HelloWorld\build-vs2013-cli>cmake -DCMAKE_PREFIX_PATH="path/to/Qt5/lib/cmake" -G"Visual Studio 12 Win64" ..
 ```
+
+### Clang with Visual Studio
+I've had some success building with Clang on Windows, at least with recent versions of Visual Studio. For Clang 4.0.1 and Qt 5.9.1 (5.8 does not work, 5.9.0 might), after executing vcvarsall:
+
+```
+C:\...\Qt-CMake-HelloWorld\build-clang>cmake -DCMAKE_PREFIX_PATH="path/to/Qt5/lib/cmake" -G"Visual Studio 14 2015 Win64" -T"LLVM-vs2014" ..
+```
+
+The "vs2014" bit is a little confusing, but apparently correct.
 
 ### Everything Else 
 Everything else is untested. Submissions welcome.
