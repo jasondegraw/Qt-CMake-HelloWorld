@@ -19,6 +19,13 @@ set(CMAKE_AUTOMOC ON)
 # Add a compiler flag
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 
+# Add Clang specific linking
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wl,/subsystem:windows")
+endif()
+
+message(STATUS ${CMAKE_CXX_COMPILER_ID})
+
 # Find the QtWidgets library
 find_package(Qt5Widgets REQUIRED)
 
@@ -31,5 +38,12 @@ qt5_add_resources(QRCS resources.qrc)
 # Tell CMake to create the helloworld executable
 add_executable(helloworld main.cpp mainwindow.cpp ${UI_HEADERS} ${QRCS})
 
+# Add Clang specific linking
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+  set(DEPENDENCIES Qt5::Widgets Qt5::WinMain)
+else()
+  set(DEPENDENCIES Qt5::Widgets)
+endif()
+
 # Add the Qt5 Widgets for linking
-target_link_libraries(helloworld Qt5::Widgets)
+target_link_libraries(helloworld ${DEPENDENCIES})
