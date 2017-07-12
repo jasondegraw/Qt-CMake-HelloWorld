@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.11)
+cmake_minimum_required(VERSION 3.8.2)
 
 project(helloworld)
 
@@ -19,6 +19,11 @@ set(CMAKE_AUTOMOC ON)
 # Add a compiler flag
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 
+# Make this a GUI application on Windows
+if(WIN32)
+  set(CMAKE_WIN32_EXECUTABLE ON)
+endif()
+
 # Find the QtWidgets library
 find_package(Qt5Widgets REQUIRED)
 
@@ -32,4 +37,4 @@ qt5_add_resources(QRCS resources.qrc)
 add_executable(helloworld main.cpp mainwindow.cpp ${UI_HEADERS} ${QRCS})
 
 # Add the Qt5 Widgets for linking
-target_link_libraries(helloworld Qt5::Widgets)
+target_link_libraries(helloworld Qt5::Widgets Qt5::WinMain)
