@@ -36,5 +36,22 @@ CMake Command Line, Visual Studio 2015, Clang 4.0.1, Qt 5.9.1, 64 bit: Run vcvar
 >cmake -DCMAKE_PREFIX_PATH="path/to/Qt5/lib/cmake" -G"Visual Studio 14 2015 Win64" -T"LLVM-vs2014" path/to/source
 ```
 
+### Build on Mac
+
+Update path in your CMakeLists.txt:
+
+    From:
+    set(CMAKE_PREFIX_PATH ~/DevToolsMac/QT/5.9.1/clang_64)
+    To:
+    set(CMAKE_PREFIX_PATH <YOUR QT INSTALL PATH>)
+
+Build and Run:
+
+    cmake . && make && ./helloworld
+
+Clean:
+
+    make clean && rm -fr CMakeCache.txt CMakeFiles Makefile cmake_install.cmake resources.qrc.depends
+
 ### Everything Else 
 Everything else is untested. Submissions welcome.
