@@ -5,8 +5,9 @@ project(helloworld)
 # Find includes in the build directories
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-# Turn on automatic invocation of the MOC
+# Turn on automatic invocation of the MOC & UIC
 set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
 
 # There may be a way to tell up front if Qt5 is going to be found, but I haven't found
 # a foolproof way to do it yet, so settle for the default error message for now.
@@ -25,16 +26,13 @@ if(WIN32)
 endif()
 
 # Find the QtWidgets library
-find_package(Qt5Widgets REQUIRED)
-
-# Generate code from ui files
-qt5_wrap_ui(UI_HEADERS mainwindow.ui)
+find_package(Qt5 REQUIRED COMPONENTS Widgets)
 
 # Generate rules for building source files from the resources
 qt5_add_resources(QRCS resources.qrc)
 
 # Tell CMake to create the helloworld executable
-add_executable(helloworld main.cpp mainwindow.cpp ${UI_HEADERS} ${QRCS})
+add_executable(helloworld main.cpp mainwindow.cpp mainwindow.ui ${QRCS})
 
 # Add the Qt5 Widgets for linking
 target_link_libraries(helloworld Qt5::Widgets Qt5::WinMain)
