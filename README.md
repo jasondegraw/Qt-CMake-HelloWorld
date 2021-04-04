@@ -59,6 +59,9 @@ mkdir build && cd build
 ```shell
 conan install .. --build=missing
 ```
+
+## Using the conan cmake_paths generator 
+
 * Run cmake configuration for the project. Note, that the current conan generator is cmake_paths.
 For mode details, visit https://docs.conan.io/en/latest/reference/generators/cmake_paths.html
 Note, that in the examples Visual Studio generator is used, but you are free to choose it on your demand.
@@ -73,6 +76,24 @@ mkdir build
 cd build
 conan install .. --build=missing
 cmake -DCMAKE_TOOLCHAIN_FILE=conan_paths.cmake -G"Visual Studio 16 2019" -Ax64 ..
+cmake --build .
+```
+
+## Using the conan cmake_find_package generator
+* uncomment the line `#cmake_find_package` in conanfile.txt
+* uncomment `#include(${CMAKE_BINARY_DIR}/conan_paths.cmake)` in CMakeLists.txt
+* run:
+```shell
+cmake -G"Visual Studio 16 2019" -Ax64 ..
+cmake --build .
+```
+
+* Full commandline:
+``` shell
+mkdir build
+cd build
+conan install .. --build=missing
+cmake -G"Visual Studio 16 2019" -Ax64 ..
 cmake --build .
 ```
 ### Everything Else 

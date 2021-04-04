@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 3.8.2)
 
 project(helloworld)
 
+#uncomment the line below for using with cmake_find_package generator from conan
+#include(${CMAKE_BINARY_DIR}/conan_paths.cmake)
+
 # Find includes in the build directories
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
