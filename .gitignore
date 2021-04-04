@@ -22,3 +22,6 @@
 
 # Editor temp/backup files
 *~
+
+#directories
+build/
