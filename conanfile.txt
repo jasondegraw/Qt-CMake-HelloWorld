@@ -1,0 +1,4 @@
+[requires]
+qt/5.15.1@bincrafters/stable
+[generators]
+cmake_paths

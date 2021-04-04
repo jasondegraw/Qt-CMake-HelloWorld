@@ -6,9 +6,10 @@ A Simple Qt5 Program Built with CMake 3.8.2
 ## Building
 
 ### MinGW 
+
 From the command line, you'll probably have to tell CMake where to find Qt and to use MinGW instead of MSVC. You'll probably want something along the lines of:
 
-```
+```cmake
 >cmake -DCMAKE_PREFIX_PATH="path/to/Qt5/lib/cmake" -G"MinGW Makefiles" path/to/source
 ```
 
@@ -21,7 +22,7 @@ CMake GUI, Visual Studio 2015, Qt 5.9.1, 64 bit: Add a path entry called `CMAKE_
 
 CMake Command Line, Visual Studio 2015, Qt 5.9.1, 64 bit: Run vcvarsall, then execute CMake in your build directory:
 
-```
+```cmake
 >cmake -DCMAKE_PREFIX_PATH="path/to/Qt5/lib/cmake" -G"Visual Studio 14 2015 Win64" path/to/source
 ```
 
@@ -32,9 +33,48 @@ CMake GUI, Visual Studio 2015, Clang 4.0.1, Qt 5.9.1, 64 bit: Add a path entry c
 
 CMake Command Line, Visual Studio 2015, Clang 4.0.1, Qt 5.9.1, 64 bit: Run vcvarsall, then execute CMake in your build directory:
 
-```
+```cmake
 >cmake -DCMAKE_PREFIX_PATH="path/to/Qt5/lib/cmake" -G"Visual Studio 14 2015 Win64" -T"LLVM-vs2014" path/to/source
 ```
 
+## Conan package manager
+
+It's possible to install Qt dependencies with using conan package manager with either conanfile.txt or conanfile.py. For instance, the example with conanfile.txt is given.
+
+Steps for building are placed below:
+
+* Download and install conan following the instruction:
+https://docs.conan.io/en/latest/installation.html
+
+* Add bincrafters to the conan remotes:
+
+```cmake 
+conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
+```
+* Create the build directory:
+```shell
+mkdir build && cd build
+```
+* Run conan packages installation. Probably you'll need the --build=missing option.
+```shell
+conan install .. --build=missing
+```
+* Run cmake configuration for the project. Note, that the current conan generator is cmake_paths.
+For mode details, visit https://docs.conan.io/en/latest/reference/generators/cmake_paths.html
+Note, that in the examples Visual Studio generator is used, but you are free to choose it on your demand.
+
+```shell 
+cmake -DCMAKE_TOOLCHAIN_FILE=conan_paths.cmake -G"Visual Studio 16 2019" -Ax64 ..
+cmake --build .
+```
+* Full commandline:
+```shell
+mkdir build
+cd build
+conan install .. --build=missing
+cmake -DCMAKE_TOOLCHAIN_FILE=conan_paths.cmake -G"Visual Studio 16 2019" -Ax64 ..
+cmake --build .
+```
 ### Everything Else 
+
 Everything else is untested. Submissions welcome.
