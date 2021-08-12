@@ -34,3 +34,7 @@ add_executable(helloworld main.cpp mainwindow.cpp mainwindow.ui resources.qrc)
 
 # Add the Qt5 Widgets for linking
 target_link_libraries(helloworld Qt5::Widgets)
+
+# Install application
+include(GNUInstallDirs)
+install(TARGETS helloworld RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}")
